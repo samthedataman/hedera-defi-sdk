@@ -4,17 +4,17 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hedera-defi"
-version = "0.1.0"
+version = "0.3.0"
 authors = [
     {name = "Sam Savage", email = "admin@quantdefi.ai"},
 ]
-description = "Simple Python SDK for Hedera DeFi analytics via Hgraph"
+description = "Comprehensive Python SDK for Hedera DeFi analytics with SaucerSwap DEX & Bonzo Finance integration"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
-keywords = ["hedera", "defi", "blockchain", "analytics", "hgraph", "cryptocurrency"]
+keywords = ["hedera", "defi", "blockchain", "analytics", "mirror-node", "cryptocurrency"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "License :: OSI Approved :: MIT License",

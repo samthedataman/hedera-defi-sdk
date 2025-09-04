@@ -1,0 +1,152 @@
+{
+  "test_timestamp": "2025-09-03T18:30:13.709190",
+  "test_type": "bonzo_finance_comprehensive",
+  "api_endpoint": "https://mainnet-data.bonzo.finance",
+  "test_results": {
+    "get_bonzo_markets": {
+      "execution_time": 0.7337632179260254,
+      "data_received": true,
+      "reserves_count": 13,
+      "chain_id": 295,
+      "network_name": "mainnet",
+      "total_reserves": "42,301,897.24"
+    },
+    "get_bonzo_total_markets": {
+      "execution_time": 0.000125885009765625,
+      "data_received": true,
+      "total_supplied_usd": "42,301,897.24",
+      "total_borrowed_usd": "11,170,453.86",
+      "total_liquidity_usd": "31,131,442.50"
+    },
+    "get_bonzo_reserves": {
+      "execution_time": 5.0067901611328125e-06,
+      "reserves_count": 13,
+      "active_reserves": 13,
+      "sample_reserves": [
+        "XSAUCE",
+        "USDC",
+        "KARATE",
+        "HBARX",
+        "SAUCE"
+      ]
+    },
+    "individual_token_reserves": {
+      "USDC": {
+        "execution_time": 5.030632019042969e-05,
+        "found": true,
+        "active": true,
+        "supply_apy": 4.172021551566196,
+        "borrow_apy": 10.031557659098688,
+        "utilization_rate": 49.42891500804031
+      },
+      "HBARX": {
+        "execution_time": 2.193450927734375e-05,
+        "found": true,
+        "active": true,
+        "supply_apy": 0.04914089919036968,
+        "borrow_apy": 0.7898264932136856,
+        "utilization_rate": 6.9494153088512745
+      },
+      "SAUCE": {
+        "execution_time": 1.9788742065429688e-05,
+        "found": true,
+        "active": true,
+        "supply_apy": 0.483582455165843,
+        "borrow_apy": 3.115921578412517,
+        "utilization_rate": 18.410499020222503
+      },
+      "WHBAR": {
+        "execution_time": 2.002716064453125e-05,
+        "found": true,
+        "active": true,
+        "supply_apy": 0.6199229156190977,
+        "borrow_apy": 2.801402629402383,
+        "utilization_rate": 25.326449139084684
+      },
+      "XSAUCE": {
+        "execution_time": 2.193450927734375e-05,
+        "found": true,
+        "active": true,
+        "supply_apy": 0.058571203836788044,
+        "borrow_apy": 0.9274581187746378,
+        "utilization_rate": 7.121714801124994
+      }
+    },
+    "get_bonzo_best_lending_rates": {
+      "execution_time": 0.00011610984802246094,
+      "opportunities_found": 2,
+      "top_rates": [
+        {
+          "token": "USDC",
+          "supply_apy": 4.172021551566196,
+          "risk_level": "Medium"
+        },
+        {
+          "token": "BONZO",
+          "supply_apy": 1.3677287265738247,
+          "risk_level": "Low"
+        }
+      ]
+    },
+    "get_bonzo_borrowing_rates": {
+      "execution_time": 6.508827209472656e-05,
+      "borrowing_options": 13,
+      "cheapest_borrow": [
+        {
+          "token": "HBARX",
+          "variable_borrow_apy": 0.7898264932136856,
+          "ltv": 0.6298
+        },
+        {
+          "token": "XSAUCE",
+          "variable_borrow_apy": 0.9274581187746378,
+          "ltv": 0.4
+        },
+        {
+          "token": "DOVU",
+          "variable_borrow_apy": 1.1931924242845282,
+          "ltv": 0.2
+        },
+        {
+          "token": "GRELF",
+          "variable_borrow_apy": 2.0357801422091315,
+          "ltv": 0.2
+        },
+        {
+          "token": "HST",
+          "variable_borrow_apy": 2.0980974306116895,
+          "ltv": 0.1
+        }
+      ]
+    },
+    "risk_assessment": {
+      "XSAUCE": {
+        "risk_level": "Low",
+        "utilization_rate": 7.121714801124994,
+        "ltv": 0.4,
+        "liquidation_threshold": 0.6759
+      },
+      "USDC": {
+        "risk_level": "Medium",
+        "utilization_rate": 49.42891500804031,
+        "ltv": 0.8045,
+        "liquidation_threshold": 0.835
+      },
+      "KARATE": {
+        "risk_level": "Low",
+        "utilization_rate": 19.116936527076973,
+        "ltv": 0.2,
+        "liquidation_threshold": 0.65
+      }
+    }
+  },
+  "performance_summary": {
+    "total_execution_time": 0.7340753078460693,
+    "total_api_calls": 8,
+    "calls_per_second": 10.898064428122062,
+    "cache_efficiency": "High",
+    "call_breakdown": {
+      "get_bonzo_markets": 8
+    }
+  }
+}

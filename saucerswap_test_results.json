@@ -1,0 +1,204 @@
+{
+  "test_timestamp": "2025-09-03T18:33:08.931758",
+  "test_type": "saucerswap_comprehensive",
+  "api_endpoint": "https://server.saucerswap.finance/api/public",
+  "test_results": {
+    "get_saucerswap_stats": {
+      "execution_time": 0.6337940692901611,
+      "data_received": true,
+      "tvl_usd": 95275303.745117,
+      "volume_total_usd": 4515789690.394449,
+      "swap_total": 13183241,
+      "circulating_sauce": "850699940370039"
+    },
+    "get_saucerswap_pools": {
+      "execution_time": 1.028489351272583,
+      "total_pools": 2353,
+      "active_pools": 0,
+      "sample_pool_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "data_size_estimate": 1992807
+    },
+    "get_saucerswap_tokens": {
+      "execution_time": 0.24809694290161133,
+      "total_tokens": 1334,
+      "tokens_with_prices": 1134,
+      "top_priced_tokens": [
+        {
+          "symbol": "AUGUSTA",
+          "price_usd": 21939776.20245089,
+          "in_top_pools": false
+        },
+        {
+          "symbol": "\u221e",
+          "price_usd": 14499367.56783062,
+          "in_top_pools": false
+        },
+        {
+          "symbol": "MSHOT",
+          "price_usd": 1436483.87888129,
+          "in_top_pools": false
+        },
+        {
+          "symbol": "$DUDE vol up \ud83d\udc40 probably nothing",
+          "price_usd": 1302416.55446068,
+          "in_top_pools": false
+        },
+        {
+          "symbol": "HELL",
+          "price_usd": 1225014.56656372,
+          "in_top_pools": false
+        },
+        {
+          "symbol": "XOL",
+          "price_usd": 783012.53543982,
+          "in_top_pools": false
+        },
+        {
+          "symbol": "WBTC[hts]",
+          "price_usd": 110910.17145750068,
+          "in_top_pools": true
+        },
+        {
+          "symbol": "AUg",
+          "price_usd": 62028.4622282,
+          "in_top_pools": false
+        },
+        {
+          "symbol": "POTATO",
+          "price_usd": 29957.10984816,
+          "in_top_pools": false
+        },
+        {
+          "symbol": "XPH",
+          "price_usd": 7498.95062202,
+          "in_top_pools": false
+        }
+      ]
+    },
+    "get_saucerswap_top_pools": {
+      "execution_time": 0.011660099029541016,
+      "pools_analyzed": 2353,
+      "top_pools_returned": 0,
+      "highest_tvl": 0,
+      "total_top_tvl": 0,
+      "top_pool_pairs": []
+    },
+    "token_specific_functions": {
+      "test_token_id": "0.0.456858",
+      "get_token_by_id": {
+        "execution_time": 0.001130819320678711,
+        "found": true,
+        "symbol": "USDC",
+        "price_usd": 0.9953812577002222
+      },
+      "get_token_price": {
+        "execution_time": 0.0002181529998779297,
+        "price_usd": 0.9953812577002222
+      },
+      "get_token_pairs": {
+        "execution_time": 0.012786865234375,
+        "pairs_found": 72,
+        "total_tvl": 0.0,
+        "top_pair": {
+          "id": 1,
+          "contractId": "0.0.1080215",
+          "inTopPools": false,
+          "lpToken": {
+            "decimals": 8,
+            "id": "0.0.1080216",
+            "name": "SS-LP USDC - HBAR",
+            "symbol": "USDC - HBAR",
+            "priceUsd": "10.90416677461419951162"
+          },
+          "lpTokenReserve": "52913077214",
+          "tokenA": {
+            "id": "0.0.456858",
+            "icon": "https://dwk1opv266jxs.cloudfront.net/icons/tokens/0.0.456858.png",
+            "name": "USD Coin",
+            "decimals": 6,
+            "price": "453688006",
+            "priceUsd": 0.9953420806455524,
+            "symbol": "USDC",
+            "dueDiligenceComplete": 1,
+            "isFeeOnTransferToken": 0,
+            "createdAt": null
+          },
+          "tokenReserveA": "2898365445",
+          "tokenB": {
+            "id": "0.0.1062664",
+            "icon": "https://dwk1opv266jxs.cloudfront.net/icons/tokens/0.0.1062664.svg",
+            "name": "WHBAR [old]",
+            "decimals": 8,
+            "price": "100000000",
+            "priceUsd": 0.21938911,
+            "symbol": "HBAR",
+            "dueDiligenceComplete": 1,
+            "isFeeOnTransferToken": 0,
+            "createdAt": null
+          },
+          "tokenReserveB": "1307686391173",
+          "tvl_usd": 0.0
+        }
+      }
+    },
+    "get_saucerswap_analytics": {
+      "execution_time": 0.004106044769287109,
+      "total_pools": 2353,
+      "active_pools": 0,
+      "total_tokens": 1334,
+      "tokens_with_prices": 1134,
+      "total_tvl_calculated": 0
+    },
+    "protocol_metrics": {
+      "execution_time": 3.0279159545898438e-05,
+      "protocol_tvl_usd": 95275303.745117,
+      "volume_24h_estimate": 4515789.690394449
+    },
+    "get_all_token_images": {
+      "execution_time": 0.0017547607421875,
+      "total_images": 598,
+      "png_images": 370,
+      "other_formats": 228,
+      "sample_png_urls": [
+        "https://dwk1opv266jxs.cloudfront.net/icons/tokens/0.0.1456986.png",
+        "https://dwk1opv266jxs.cloudfront.net/icons/tokens/0.0.731861.png",
+        "https://dwk1opv266jxs.cloudfront.net/icons/tokens/0.0.9362055.png",
+        "https://dwk1opv266jxs.cloudfront.net/icons/tokens/0.0.6053244.png",
+        "https://dwk1opv266jxs.cloudfront.net/icons/tokens/0.0.8046957.png"
+      ]
+    },
+    "get_saucerswap_known_pools": {
+      "execution_time": 1.8565170764923096,
+      "known_pools_count": 1441,
+      "verified_pool_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10
+      ]
+    }
+  },
+  "performance_summary": {
+    "total_execution_time": 3.7844486236572266,
+    "total_api_calls": 83,
+    "calls_per_second": 21.93186068933609,
+    "cache_efficiency": "Low",
+    "call_breakdown": {
+      "get_saucerswap_pools": 76,
+      "get_saucerswap_tokens": 7
+    },
+    "optimization_status": "Needs work"
+  }
+}

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hedera DeFi SDK - Browser Example</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        h1, h2 { text-align: center; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .metric {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4ade80;
+            margin-bottom: 5px;
+        }
+        .label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .loading {
+            text-align: center;
+            font-style: italic;
+            opacity: 0.7;
+        }
+        .error {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .token-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        .token-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .token-item:last-child { border-bottom: none; }
+        button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+        button:hover { transform: translateY(-2px); }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Hedera DeFi SDK</h1>
+        <h2>Browser Integration Example</h2>
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+            <button onclick="loadDashboard()">Load DeFi Dashboard</button>
+            <button onclick="loadTokens()">Load Token Data</button>
+            <button onclick="showPerformanceStats()">Show Performance</button>
+            <button onclick="clearCache()">Clear Cache</button>
+        </div>
+
+        <div id="status" class="status">
+            Click a button above to start exploring Hedera DeFi data!
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>📊 Network Stats</h3>
+                <div id="network-stats" class="loading">Click "Load DeFi Dashboard" to see data</div>
+            </div>
+
+            <div class="card">
+                <h3>🌐 SaucerSwap DEX</h3>
+                <div id="saucerswap-stats" class="loading">Loading...</div>
+            </div>
+
+            <div class="card">
+                <h3>🏦 Bonzo Finance</h3>
+                <div id="bonzo-stats" class="loading">Loading...</div>
+            </div>
+
+            <div class="card">
+                <h3>🪙 Top Tokens</h3>
+                <div id="token-stats" class="loading">Click "Load Token Data" to see tokens</div>
+            </div>
+
+            <div class="card">
+                <h3>📈 Performance</h3>
+                <div id="performance-stats" class="loading">Click "Show Performance" to see stats</div>
+            </div>
+
+            <div class="card">
+                <h3>💾 Cache Status</h3>
+                <div id="cache-stats" class="loading">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the bundled SDK - In production, this would be from NPM/CDN -->
+    <script>
+        // For browser usage, you would typically:
+        // 1. Install via NPM: npm install hedera-defi-js
+        // 2. Bundle with Webpack/Vite/etc: import { HederaDeFi } from 'hedera-defi-js';
+        // 3. Or use from CDN: <script src="https://cdn.jsdelivr.net/npm/hedera-defi-js/dist/bundle.js"></script>
+        
+        // For this demo, we'll simulate the SDK being available
+        console.log('🎯 Hedera DeFi SDK Browser Demo');
+        console.log('In production, import the SDK: import { HederaDeFi } from "hedera-defi-js"');
+        
+        // Mock client for demo purposes
+        class MockHederaDeFi {
+            constructor(config = {}) {
+                this.callCounts = {};
+                console.log('✅ Hedera DeFi SDK initialized with config:', config);
+            }
+            
+            trackCall(method) {
+                this.callCounts[method] = (this.callCounts[method] || 0) + 1;
+            }
+            
+            async getNetworkSupply() {
+                this.trackCall('getNetworkSupply');
+                await this.delay(300);
+                return {
+                    totalSupply: 50000000000,
+                    circulatingSupply: 42392927394.968,
+                    timestamp: new Date()
+                };
+            }
+            
+            async getSaucerSwapStats() {
+                this.trackCall('getSaucerSwapStats');
+                await this.delay(500);
+                return {
+                    tvlUsd: 95072056.877,
+                    volumeTotalUsd: 4515789690.394,
+                    swapTotal: 13183653
+                };
+            }
+            
+            async getBonzoMarkets() {
+                this.trackCall('getBonzoMarkets');
+                await this.delay(700);
+                return {
+                    networkName: 'mainnet',
+                    reserves: Array(13).fill().map((_, i) => ({ active: true })),
+                    totalMarketSupplied: { usdDisplay: '$42,194,973.17' }
+                };
+            }
+            
+            async getTopTokens(limit = 5) {
+                this.trackCall('getTopTokens');
+                await this.delay(400);
+                return [
+                    { symbol: 'HBAR', tokenId: '0.0.0', price: 0.056789 },
+                    { symbol: 'USDC', tokenId: '0.0.456858', price: 1.0001 },
+                    { symbol: 'SAUCE', tokenId: '0.0.731861', price: 0.0234 },
+                    { symbol: 'DOVU', tokenId: '0.0.402566', price: 0.0123 },
+                    { symbol: 'PACK', tokenId: '0.0.618493', price: 0.00456 }
+                ].slice(0, limit);
+            }
+            
+            showCallStatistics() {
+                const totalCalls = Object.values(this.callCounts).reduce((sum, count) => sum + count, 0);
+                return {
+                    callCounts: { ...this.callCounts },
+                    totalCalls,
+                    uniqueMethods: Object.keys(this.callCounts).length,
+                    excessiveMethods: []
+                };
+            }
+            
+            getCacheStats() {
+                return {
+                    size: 4,
+                    entries: ['tokens', 'stats', 'pools', 'markets']
+                };
+            }
+            
+            clearCache() {
+                console.log('🧹 Cache cleared');
+            }
+            
+            delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+        }
+        
+        // Initialize SDK
+        const client = new MockHederaDeFi({
+            cacheTtl: 300, // 5 minutes
+            timeout: 30000 // 30 seconds
+        });
+        
+        // Helper functions
+        function formatNumber(num, decimals = 2, prefix = '') {
+            if (num >= 1e9) return prefix + (num / 1e9).toFixed(decimals) + 'B';
+            if (num >= 1e6) return prefix + (num / 1e6).toFixed(decimals) + 'M';
+            if (num >= 1e3) return prefix + (num / 1e3).toFixed(decimals) + 'K';
+            return prefix + num.toFixed(decimals);
+        }
+        
+        function setStatus(message) {
+            document.getElementById('status').innerHTML = message;
+        }
+        
+        function setLoading(elementId) {
+            document.getElementById(elementId).innerHTML = '<div class="loading">Loading...</div>';
+        }
+        
+        function setError(elementId, error) {
+            document.getElementById(elementId).innerHTML = `<div class="error">Error: ${error}</div>`;
+        }
+        
+        // Main functions
+        async function loadDashboard() {
+            setStatus('🔄 Loading DeFi dashboard...');
+            
+            try {
+                // Load network stats
+                setLoading('network-stats');
+                const supply = await client.getNetworkSupply();
+                document.getElementById('network-stats').innerHTML = `
+                    <div class="metric">${formatNumber(supply.totalSupply, 0)}</div>
+                    <div class="label">Total HBAR Supply</div>
+                    <div style="margin-top: 15px;">
+                        <div class="metric">${formatNumber(supply.circulatingSupply, 0)}</div>
+                        <div class="label">Circulating Supply</div>
+                    </div>
+                `;
+                
+                // Load SaucerSwap stats
+                setLoading('saucerswap-stats');
+                const saucerStats = await client.getSaucerSwapStats();
+                document.getElementById('saucerswap-stats').innerHTML = `
+                    <div class="metric">${formatNumber(saucerStats.tvlUsd, 2, '$')}</div>
+                    <div class="label">Total Value Locked</div>
+                    <div style="margin-top: 15px;">
+                        <div class="metric">${formatNumber(saucerStats.volumeTotalUsd, 2, '$')}</div>
+                        <div class="label">Total Volume</div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <div class="metric">${formatNumber(saucerStats.swapTotal, 0)}</div>
+                        <div class="label">Total Swaps</div>
+                    </div>
+                `;
+                
+                // Load Bonzo stats
+                setLoading('bonzo-stats');
+                const bonzoMarkets = await client.getBonzoMarkets();
+                document.getElementById('bonzo-stats').innerHTML = `
+                    <div class="metric">${bonzoMarkets.reserves.length}</div>
+                    <div class="label">Active Reserves</div>
+                    <div style="margin-top: 15px;">
+                        <div class="metric">${bonzoMarkets.totalMarketSupplied.usdDisplay}</div>
+                        <div class="label">Total Supplied</div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <div class="metric">${bonzoMarkets.networkName}</div>
+                        <div class="label">Network</div>
+                    </div>
+                `;
+                
+                setStatus('✅ Dashboard loaded successfully!');
+                
+            } catch (error) {
+                setStatus(`❌ Error loading dashboard: ${error.message}`);
+            }
+        }
+        
+        async function loadTokens() {
+            setStatus('🪙 Loading token data...');
+            setLoading('token-stats');
+            
+            try {
+                const tokens = await client.getTopTokens(8);
+                const tokenList = tokens.map(token => `
+                    <div class="token-item">
+                        <span><strong>${token.symbol}</strong> (${token.tokenId})</span>
+                        <span>$${token.price.toFixed(6)}</span>
+                    </div>
+                `).join('');
+                
+                document.getElementById('token-stats').innerHTML = `
+                    <div class="metric">${tokens.length}</div>
+                    <div class="label">Tokens Loaded</div>
+                    <div class="token-list">
+                        ${tokenList}
+                    </div>
+                `;
+                
+                setStatus('✅ Token data loaded!');
+                
+            } catch (error) {
+                setError('token-stats', error.message);
+                setStatus(`❌ Error loading tokens: ${error.message}`);
+            }
+        }
+        
+        function showPerformanceStats() {
+            setStatus('📊 Showing performance statistics...');
+            
+            const stats = client.showCallStatistics();
+            const cacheStats = client.getCacheStats();
+            
+            document.getElementById('performance-stats').innerHTML = `
+                <div class="metric">${stats.totalCalls}</div>
+                <div class="label">Total API Calls</div>
+                <div style="margin-top: 15px;">
+                    <div class="metric">${stats.uniqueMethods}</div>
+                    <div class="label">Unique Methods</div>
+                </div>
+                <div style="margin-top: 10px; font-size: 0.8em;">
+                    Methods: ${Object.keys(stats.callCounts).join(', ')}
+                </div>
+            `;
+            
+            document.getElementById('cache-stats').innerHTML = `
+                <div class="metric">${cacheStats.size}</div>
+                <div class="label">Cache Entries</div>
+                <div style="margin-top: 10px; font-size: 0.8em;">
+                    Cached: ${cacheStats.entries.join(', ')}
+                </div>
+            `;
+            
+            setStatus('✅ Performance stats updated!');
+        }
+        
+        function clearCache() {
+            client.clearCache();
+            setStatus('🧹 Cache cleared successfully!');
+        }
+        
+        // Initialize cache stats on load
+        showPerformanceStats();
+        
+        console.log('🎉 Browser example ready! Click the buttons to explore Hedera DeFi data.');
+    </script>
+</body>
+</html>
