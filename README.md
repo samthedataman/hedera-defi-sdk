@@ -394,6 +394,8 @@ print(f"Whale transactions: {len(whales)}")
 pip install hedera-defi
 ```
 
+**📦 [View on PyPI](https://pypi.org/project/hedera-defi/)** - Official Python Package Index listing with all versions, dependencies, and download statistics.
+
 ### Install from source
 ```bash
 git clone https://github.com/samthedataman/hedera-defi-sdk.git
