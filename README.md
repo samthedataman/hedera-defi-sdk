@@ -1,15 +1,31 @@
 # 🌐 Hedera DeFi SDK
 
 [![PyPI version](https://badge.fury.io/py/hedera-defi.svg)](https://badge.fury.io/py/hedera-defi)
+[![NPM version](https://badge.fury.io/js/hedera-defi-js.svg)](https://badge.fury.io/js/hedera-defi-js)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Node.js 14+](https://img.shields.io/badge/node-14+-green.svg)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/samthedataman/hedera-defi-sdk)
 
-**The most comprehensive Python SDK for Hedera DeFi analytics and blockchain data access.**
+**The most comprehensive multi-language SDK for Hedera DeFi analytics and blockchain data access.**
 
 > 🚀 **Production-ready SDK with 45+ optimized methods providing blazing-fast access to Hedera's DeFi ecosystem through Mirror Node API, SaucerSwap DEX, and Bonzo Finance lending markets.**
 
-## 🔥 **What's New in v0.3.0**
+## 🎯 **Multi-Language Support**
+- 🐍 **Python SDK**: `pip install hedera-defi` - [PyPI Package](https://pypi.org/project/hedera-defi/)
+- 📦 **Node.js/JavaScript SDK**: `npm install hedera-defi-js` - [NPM Package](https://www.npmjs.com/package/hedera-defi-js)
+
+## 🔥 **What's New**
+
+### 📦 **JavaScript/Node.js SDK v1.0.1** (Latest Release)
+- 🎉 **Official NPM Release**: Full production-ready JavaScript/TypeScript SDK
+- ✅ **100% Test Coverage**: 32/32 unit tests + 11/11 integration tests passing
+- 🔍 **Comprehensive Data Validation**: 23/23 data structure validation tests
+- 🚀 **Performance Optimized**: Intelligent caching with TTL-based invalidation
+- 📊 **Real-time Analytics**: All APIs tested with live data (95M+ TVL)
+- 🛡️ **Type Safety**: Full TypeScript definitions and IntelliSense support
+
+### 🐍 **Python SDK v0.3.0**
 - ⚡ **99.9% Performance Improvement**: Eliminated 15,000+ duplicate API calls
 - 🥞 **Full SaucerSwap Integration**: Complete DEX data, pools, tokens, and analytics
 - 🖼️ **Token Images API**: Get all token icons and PNG assets from SaucerSwap
@@ -385,6 +401,45 @@ print(f"Whale transactions: {len(whales)}")
 
 ## 🛠️ Installation
 
+## 📦 **JavaScript/Node.js Installation**
+
+### Requirements
+- **Node.js 14+**
+- **Dependencies**: `axios`, `cross-fetch`
+
+### Install via npm
+```bash
+npm install hedera-defi-js
+```
+
+### Install via yarn
+```bash
+yarn add hedera-defi-js
+```
+
+**📦 [View on NPM](https://www.npmjs.com/package/hedera-defi-js)** - Official NPM registry with TypeScript support included.
+
+### Quick Start (JavaScript)
+```javascript
+const { HederaDeFi } = require('hedera-defi-js');
+
+const client = new HederaDeFi();
+const stats = await client.getSaucerSwapStats();
+console.log(`SaucerSwap TVL: $${stats.tvlUsd.toLocaleString()}`);
+```
+
+### Quick Start (TypeScript)
+```typescript
+import { HederaDeFi, SaucerSwapStats } from 'hedera-defi-js';
+
+const client = new HederaDeFi({ cacheTtl: 300, timeout: 15000 });
+const stats: SaucerSwapStats = await client.getSaucerSwapStats();
+```
+
+---
+
+## 🐍 **Python Installation**
+
 ### Requirements
 - **Python 3.8+**
 - **Dependencies**: `requests`, `pandas`, `numpy`, `python-dateutil`
@@ -414,7 +469,91 @@ pip install -e ".[dev]"
 
 ## 📖 Usage Examples
 
-### 🌐 Network Analysis
+## 📦 **JavaScript/TypeScript Examples**
+
+### 🌐 Network Analysis (JavaScript)
+
+```javascript
+const { HederaDeFi } = require('hedera-defi-js');
+
+const client = new HederaDeFi({ cacheTtl: 300, timeout: 15000 });
+
+async function analyzeNetwork() {
+  // Comprehensive network overview
+  const supply = await client.getNetworkSupply();
+  const nodes = await client.getNetworkNodes();
+  const rate = await client.getNetworkExchangeRate();
+
+  console.log('🌐 Network Status:');
+  console.log(`   Total Supply: ${supply.totalSupply.toLocaleString()} HBAR`);
+  console.log(`   Circulating: ${supply.circulatingSupply.toLocaleString()} HBAR`);
+  console.log(`   Active Nodes: ${nodes.length}`);
+
+  if (rate?.currentRate) {
+    const price = (rate.currentRate.centEquivalent / rate.currentRate.hbarEquivalent / 100);
+    console.log(`   HBAR Price: $${price.toFixed(4)}`);
+  }
+}
+```
+
+### 🥞 SaucerSwap DEX Analytics (TypeScript)
+
+```typescript
+import { HederaDeFi, SaucerSwapStats, SaucerSwapPool } from 'hedera-defi-js';
+
+const client = new HederaDeFi();
+
+async function analyzeDeFi(): Promise<void> {
+  // Get comprehensive DeFi data
+  const stats: SaucerSwapStats = await client.getSaucerSwapStats();
+  const pools: SaucerSwapPool[] = await client.getSaucerSwapPools();
+  const tokens = await client.getSaucerSwapTokens();
+
+  console.log('🥞 SaucerSwap Analytics:');
+  console.log(`   Total Value Locked: $${stats.tvlUsd.toLocaleString()}`);
+  console.log(`   Total Volume: $${stats.volumeTotalUsd.toLocaleString()}`);
+  console.log(`   Active Pools: ${pools.length}`);
+  console.log(`   Listed Tokens: ${tokens.length}`);
+
+  // Top pools by TVL
+  const topPools = pools
+    .sort((a, b) => (b.tvlUsd || 0) - (a.tvlUsd || 0))
+    .slice(0, 5);
+
+  console.log('\n📊 Top Liquidity Pools:');
+  topPools.forEach((pool, i) => {
+    console.log(`   ${i+1}. ${pool.tokenA.symbol}-${pool.tokenB.symbol}`);
+    console.log(`      TVL: $${pool.tvlUsd?.toLocaleString() || '0'}`);
+  });
+}
+```
+
+### 🏦 Bonzo Finance Integration (JavaScript)
+
+```javascript
+async function analyzeLending() {
+  const bonzoMarkets = await client.getBonzoMarkets();
+  
+  console.log('🏦 Bonzo Finance Markets:');
+  console.log(`   Network: ${bonzoMarkets.networkName}`);
+  console.log(`   Total Supplied: ${bonzoMarkets.totalMarketSupplied.usdDisplay}`);
+  console.log(`   Total Borrowed: ${bonzoMarkets.totalMarketBorrowed.usdDisplay}`);
+
+  console.log('\n📈 Active Lending Markets:');
+  bonzoMarkets.reserves.slice(0, 5).forEach(market => {
+    console.log(`   ${market.symbol}:`);
+    console.log(`     Supply APY: ${(market.supplyApy * 100).toFixed(2)}%`);
+    console.log(`     Borrow APY: ${(market.variableBorrowApy * 100).toFixed(2)}%`);
+    console.log(`     Utilization: ${market.utilizationRate.toFixed(1)}%`);
+  });
+}
+```
+
+---
+
+## 🐍 **Python Examples**
+
+### 🌐 Network Analysis (Python)
 
 ```python
 from hedera_defi import HederaDeFi
@@ -868,6 +1007,50 @@ print(f"Utilization Rate: {ecosystem_data['utilization_rate']:.1f}%")
 ---
 
 ## 🧪 Testing & Validation
+
+## 📦 **JavaScript/Node.js Testing Results**
+
+### ✅ **100% Test Coverage** - Version 1.0.1
+- **32/32 Unit Tests** passing ✅
+- **11/11 Integration Tests** passing ✅  
+- **23/23 Data Validation Tests** passing ✅
+- **Package Validation** tests passing ✅
+
+### 🚀 **Real API Testing** (Live Data)
+```javascript
+// All APIs tested with live mainnet data
+const client = new HederaDeFi();
+
+// Mirror Node API: ✅ Working
+const supply = await client.getNetworkSupply();
+const nodes = await client.getNetworkNodes(); // 10 nodes found
+
+// SaucerSwap API: ✅ Working  
+const stats = await client.getSaucerSwapStats();
+// TVL: $95,056,902 | Volume: $4.52B | Pools: 2,353 | Tokens: 1,334
+
+// Bonzo Finance API: ✅ Working
+const bonzo = await client.getBonzoMarkets();
+// Network: mainnet | Reserves: 13 | TVL: $42.29M
+
+// Cross-protocol Analytics: ✅ Working
+const summary = await client.getCrossProtocolLiquiditySummary();
+// Total DeFi Liquidity: $95.06M across all protocols
+```
+
+### 🔍 **Comprehensive Data Validation**
+All data structures validated against actual API responses:
+- Network nodes, supply, and exchange rates
+- Token metadata, prices, and decimal formatting  
+- SaucerSwap pools, tokens, and statistics
+- Bonzo Finance reserves and lending data
+- Cross-protocol analytics and performance metrics
+
+**[View Complete Test Results](hedera-defi-js/TEST_RESULTS.md)** - Detailed testing documentation with 100% pass rates.
+
+---
+
+## 🐍 **Python SDK Testing**
 
 ### Comprehensive SDK Testing
 

@@ -1,6 +1,6 @@
 {
   "name": "hedera-defi-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Comprehensive Hedera DeFi SDK for JavaScript/TypeScript with 40+ methods for developers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
